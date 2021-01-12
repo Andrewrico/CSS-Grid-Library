@@ -1,6 +1,7 @@
 *,
 *::before,
 *::after {
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -9,8 +10,9 @@
     --width: 100%;
     --grid-gap: 8px;
     --columns-width: 96px;
+    display: -ms-grid;
     display: grid;
-    grid-template-columns: 1fr;
+    --grid-template-columns: 1fr;
     margin: auto;
     grid-gap: var(--grid-gap);
     padding: 0 var(--grid-gap);
@@ -18,6 +20,7 @@
     max-width: var(--max-width);
     width: var(--width);
 }
+
 
 .grid:first-child {
     padding-top: var(--grid-gap);
@@ -81,8 +84,8 @@
     --max-width: 70%
 }
 
-.mxw\(60\%\) {
-    --max-width: 60%
+.mxw\(80\%\) {
+    --max-width: 68%
 }
 
 .mxw\(90\%\) {
@@ -113,10 +116,6 @@
     --grid-gap: 0
 }
 
-.gap\(1\) {
-    --grid-gap: 1rem
-}
-
 .gap\(2x\) {
     --grid-gap: 2px
 }
@@ -127,6 +126,10 @@
 
 .gap\(8x\) {
     --grid-gap: 8px
+}
+
+.gap\(12x\) {
+    --grid-gap: 12px
 }
 
 .gap\(1\) {
@@ -149,18 +152,28 @@
     grid-column: 1 / -1
 }
 
+[class*="cols("] {
+    -ms-grid-columns: var(--ms-grid-columns);
+    grid-template-columns: var(--grid-template-columns);
+}
+
 .cols\(100x\) {
-    grid-template-columns: repeat(auto-fill, minmax(var(--columns-width), 1fr));
+    --grid-template-columns: repeat(auto-fill, minmax(var(--columns-width), 1fr));
     --columns-width: 100px
 }
 
 .cols\(200x\) {
-    grid-template-columns: repeat(auto-fill, minmax(var(--columns-width), 1fr));
+    --grid-template-columns: repeat(auto-fill, minmax(var(--columns-width), 1fr));
     --columns-width: 200px;
 }
 
 .cols\(300x\) {
-    grid-template-columns: repeat(auto-fill, minmax(var(--columns-width), 1fr));
+    --grid-template-columns: repeat(auto-fill, minmax(var(--columns-width), 1fr));
+    --columns-width: 300px
+}
+
+.cols\(375x\) {
+    --grid-template-columns: repeat(auto-fill, minmax(var(--columns-width), 1fr));
     --columns-width: 300px
 }
 
@@ -178,8 +191,8 @@
     .cols\(10\),
     .cols\(11\),
     .cols\(12\) {
-        -ms-grid-columns: 1fr;
-        grid-template-columns: 1fr;
+        --ms-grid-columns: 1fr;
+        --grid-template-columns: 1fr;
     }
 
     .cols\(2\).ms\(2\),
@@ -193,8 +206,8 @@
     .cols\(10\).ms\(2\),
     .cols\(11\).ms\(2\),
     .cols\(12\).ms\(2\) {
-        -ms-grid-columns: (1fr)[2];
-        grid-template-columns: repeat(2, 1fr);
+        --ms-grid-columns: (1fr)[2];
+        --grid-template-columns: repeat(2, 1fr);
     }
 
     .cols\(2\).ms\(3\),
@@ -208,8 +221,8 @@
     .cols\(10\).ms\(3\),
     .cols\(11\).ms\(3\),
     .cols\(12\).ms\(3\) {
-        -ms-grid-columns: (1fr)[3];
-        grid-template-columns: repeat(3, 1fr);
+        --ms-grid-columns: (1fr)[3];
+        --grid-template-columns: repeat(3, 1fr);
     }
 
     .cols\(2\).ms\(4\),
@@ -223,9 +236,750 @@
     .cols\(10\).ms\(4\),
     .cols\(11\).ms\(4\),
     .cols\(12\).ms\(4\) {
-        -ms-grid-columns: (1fr)[4];
-        grid-template-columns: repeat(4, 1fr);
+        --ms-grid-columns: (1fr)[4];
+        --grid-template-columns: repeat(4, 1fr);
     }
+}
+
+@media all and (min-width: 768px) {
+
+    .cols\(2\),
+    .cols\(5\),
+    .cols\(4\),
+    .cols\(6\),
+    .cols\(8\),
+    .cols\(9\),
+    .cols\(10\),
+    .cols\(11\),
+    .cols\(12\) {
+        --ms-grid-columns: (1fr)[2];
+        --grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cols\(3\) {
+        --ms-grid-columns: (1fr)[3];
+        --grid-template-columns: repeat(3, 1fr);
+    }
+
+
+    .cols\(2\).size\(1s-1m\),
+    .cols\(2\).size\(1s-1l\),
+    .cols\(2\).size\(1m-1s\),
+    .cols\(2\).size\(1m-1l\),
+    .cols\(2\).size\(1l-1s\),
+    .cols\(2\).size\(1l-1m\),
+    .cols\(3\).size\(1s-1s-1m\),
+    .cols\(3\).size\(1s-1s-1l\),
+    .cols\(3\).size\(1s-1m-1s\),
+    .cols\(3\).size\(1s-1m-1m\),
+    .cols\(3\).size\(1s-1m-1l\),
+    .cols\(3\).size\(1s-1l-1s\),
+    .cols\(3\).size\(1s-1l-1m\),
+    .cols\(3\).size\(1s-1l-1l\),
+    .cols\(3\).size\(1m-1s-1s\),
+    .cols\(3\).size\(1m-1s-1m\),
+    .cols\(3\).size\(1m-1s-1l\),
+    .cols\(3\).size\(1m-1m-1s\),
+    .cols\(3\).size\(1m-1m-1l\),
+    .cols\(3\).size\(1m-1l-1s\),
+    .cols\(3\).size\(1m-1l-1m\),
+    .cols\(3\).size\(1m-1l-1l\),
+    .cols\(3\).size\(1l-1s-1s\),
+    .cols\(3\).size\(1l-1s-1m\),
+    .cols\(3\).size\(1l-1s-1l\),
+    .cols\(3\).size\(1l-1m-1s\),
+    .cols\(3\).size\(1l-1m-1m\),
+    .cols\(3\).size\(1l-1m-1l\),
+    .cols\(3\).size\(1l-1l-1s\),
+    .cols\(3\).size\(1l-1l-1m\),
+    .cols\(4\).size\(1s-1s-1s-1m\),
+    .cols\(4\).size\(1s-1s-1s-1l\),
+    .cols\(4\).size\(1s-1s-1m-1s\),
+    .cols\(4\).size\(1s-1s-1m-1m\),
+    .cols\(4\).size\(1s-1s-1m-1l\),
+    .cols\(4\).size\(1s-1s-1l-1s\),
+    .cols\(4\).size\(1s-1s-1l-1m\),
+    .cols\(4\).size\(1s-1s-1l-1l\),
+    .cols\(4\).size\(1s-1m-1s-1s\),
+    .cols\(4\).size\(1s-1m-1s-1m\),
+    .cols\(4\).size\(1s-1m-1s-1l\),
+    .cols\(4\).size\(1s-1m-1m-1s\),
+    .cols\(4\).size\(1s-1m-1m-1m\),
+    .cols\(4\).size\(1s-1m-1m-1l\),
+    .cols\(4\).size\(1s-1m-1l-1s\),
+    .cols\(4\).size\(1s-1m-1l-1m\),
+    .cols\(4\).size\(1s-1m-1l-1l\),
+    .cols\(4\).size\(1s-1l-1s-1s\),
+    .cols\(4\).size\(1s-1l-1s-1m\),
+    .cols\(4\).size\(1s-1l-1s-1l\),
+    .cols\(4\).size\(1s-1l-1m-1s\),
+    .cols\(4\).size\(1s-1l-1m-1m\),
+    .cols\(4\).size\(1s-1l-1m-1l\),
+    .cols\(4\).size\(1s-1l-1l-1s\),
+    .cols\(4\).size\(1s-1l-1l-1m\),
+    .cols\(4\).size\(1s-1l-1l-1l\),
+    .cols\(4\).size\(1m-1s-1s-1s\),
+    .cols\(4\).size\(1m-1s-1s-1m\),
+    .cols\(4\).size\(1m-1s-1s-1l\),
+    .cols\(4\).size\(1m-1s-1m-1s\),
+    .cols\(4\).size\(1m-1s-1m-1m\),
+    .cols\(4\).size\(1m-1s-1m-1l\),
+    .cols\(4\).size\(1m-1s-1l-1s\),
+    .cols\(4\).size\(1m-1s-1l-1m\),
+    .cols\(4\).size\(1m-1s-1l-1l\),
+    .cols\(4\).size\(1m-1m-1s-1s\),
+    .cols\(4\).size\(1m-1m-1s-1m\),
+    .cols\(4\).size\(1m-1m-1s-1l\),
+    .cols\(4\).size\(1m-1m-1m-1s\),
+    .cols\(4\).size\(1m-1m-1m-1l\),
+    .cols\(4\).size\(1m-1m-1l-1s\),
+    .cols\(4\).size\(1m-1m-1l-1m\),
+    .cols\(4\).size\(1m-1m-1l-1l\),
+    .cols\(4\).size\(1m-1l-1s-1s\),
+    .cols\(4\).size\(1m-1l-1s-1m\),
+    .cols\(4\).size\(1m-1l-1s-1l\),
+    .cols\(4\).size\(1m-1l-1m-1s\),
+    .cols\(4\).size\(1m-1l-1m-1m\),
+    .cols\(4\).size\(1m-1l-1m-1l\),
+    .cols\(4\).size\(1m-1l-1l-1s\),
+    .cols\(4\).size\(1m-1l-1l-1m\),
+    .cols\(4\).size\(1m-1l-1l-1l\),
+    .cols\(4\).size\(1l-1s-1s-1s\),
+    .cols\(4\).size\(1l-1s-1s-1m\),
+    .cols\(4\).size\(1l-1s-1s-1l\),
+    .cols\(4\).size\(1l-1s-1m-1s\),
+    .cols\(4\).size\(1l-1s-1m-1m\),
+    .cols\(4\).size\(1l-1s-1m-1l\),
+    .cols\(4\).size\(1l-1s-1l-1s\),
+    .cols\(4\).size\(1l-1s-1l-1m\),
+    .cols\(4\).size\(1l-1s-1l-1l\),
+    .cols\(4\).size\(1l-1m-1s-1s\),
+    .cols\(4\).size\(1l-1m-1s-1m\),
+    .cols\(4\).size\(1l-1m-1s-1l\),
+    .cols\(4\).size\(1l-1m-1m-1s\),
+    .cols\(4\).size\(1l-1m-1m-1m\),
+    .cols\(4\).size\(1l-1m-1m-1l\),
+    .cols\(4\).size\(1l-1m-1l-1s\),
+    .cols\(4\).size\(1l-1m-1l-1m\),
+    .cols\(4\).size\(1l-1m-1l-1l\),
+    .cols\(4\).size\(1l-1l-1s-1s\),
+    .cols\(4\).size\(1l-1l-1s-1m\),
+    .cols\(4\).size\(1l-1l-1s-1l\),
+    .cols\(4\).size\(1l-1l-1m-1s\),
+    .cols\(4\).size\(1l-1l-1m-1m\),
+    .cols\(4\).size\(1l-1l-1m-1l\),
+    .cols\(4\).size\(1l-1l-1l-1s\),
+    .cols\(4\).size\(1l-1l-1l-1m\) {
+        --ms-grid-columns: (1fr)[2];
+        --grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media all and (min-width: 1024px) {
+
+    .cols\(3\),
+    .cols\(6\),
+    .cols\(12\) {
+        --ms-grid-columns: (1fr)[3];
+        --grid-template-columns: repeat(3, 1fr);
+    }
+
+
+    .cols\(4\),
+    .cols\(8\) {
+        --ms-grid-columns: (1fr)[4];
+        --grid-template-columns: repeat(4, 1fr);
+    }
+
+    .cols\(5\),
+    .cols\(9\),
+    .cols\(10\),
+    .cols\(11\) {
+        --ms-grid-columns: (1fr)[5];
+        --grid-template-columns: repeat(5, 1fr);
+    }
+
+    .cols\(2\).size\(small\,medium\) {
+        --grid-template-columns: 1fr 2fr;
+    }
+
+    .cols\(2\).size\(small\,large\) {
+        --ms-grid-columns: 1fr 3fr;
+        --grid-template-columns: 1fr 3fr;
+    }
+
+    .cols\(2\).size\(1m-1s\) {
+        --ms-grid-columns: 2fr 1fr;
+        --grid-template-columns: 2fr 1fr;
+    }
+
+    .cols\(2\).size\(1m-1l\) {
+        --ms-grid-columns: 2fr 3fr;
+        --grid-template-columns: 2fr 3fr;
+    }
+
+    .cols\(2\).size\(1l-1s\) {
+        --ms-grid-columns: 3fr 1fr;
+        --grid-template-columns: 3fr 1fr;
+    }
+
+    .cols\(2\).size\(1l-1m\) {
+        --ms-grid-columns: 3fr 2fr;
+        --grid-template-columns: 3fr 2fr;
+    }
+
+    .cols\(3\).size\(1s-1s-1m\) {
+        --ms-grid-columns: 1fr 1fr 2fr;
+        --grid-template-columns: 1fr 1fr 2fr;
+    }
+
+    .cols\(3\).size\(1s-1s-1l\) {
+        --ms-grid-columns: 1fr 1fr 3fr;
+        --grid-template-columns: 1fr 1fr 3fr;
+    }
+
+    .cols\(3\).size\(1s-1m-1s {
+        --ms-grid-columns: 1fr 2fr 1fr;
+        --grid-template-columns: 1fr 2fr 1fr;
+    }
+
+    .cols\(3\).size\(1s-1m-1m\) {
+        --ms-grid-columns: 1fr 2fr 2fr;
+        --grid-template-columns: 1fr 2fr 2fr;
+    }
+
+    .cols\(3\).size\(1s-1m-1l\) {
+        --ms-grid-columns: 1fr 2fr 3fr;
+        --grid-template-columns: 1fr 2fr 3fr;
+    }
+
+    .cols\(3\).size\(1s-1l-1s\) {
+        --ms-grid-columns: 1fr 3fr 1fr;
+        --grid-template-columns: 1fr 3fr 1fr;
+    }
+
+    .cols\(3\).size\(1s-1l-1m\) {
+        --ms-grid-columns: 1fr 3fr 2fr;
+        --grid-template-columns: 1fr 3fr 2fr;
+    }
+
+    .cols\(3\).size\(1s-1l-1l\) {
+        --ms-grid-columns: 1fr 3fr 3fr;
+        --grid-template-columns: 1fr 3fr 3fr;
+    }
+
+    .cols\(3\).size\(1m-1s-1s\) {
+        --ms-grid-columns: 2fr 1fr 1fr;
+        --grid-template-columns: 2fr 1fr 1fr;
+    }
+
+    .cols\(3\).size\(1m-1s-1m\) {
+        --ms-grid-columns: 2fr 1fr 2fr;
+        --grid-template-columns: 2fr 1fr 2fr;
+    }
+
+    .cols\(3\).size\(1m-1s-1l\) {
+        --ms-grid-columns: 2fr 1fr 3fr;
+        --grid-template-columns: 2fr 1fr 3fr;
+    }
+
+    .cols\(3\).size\(1m-1m-1s\) {
+        --ms-grid-columns: 2fr 2fr 1fr;
+        --grid-template-columns: 2fr 2fr 1fr;
+    }
+
+    .cols\(3\).size\(1m-1m-1l\) {
+        --ms-grid-columns: 2fr 2fr 3fr;
+        --grid-template-columns: 2fr 2fr 3fr;
+    }
+
+    .cols\(3\).size\(1m-1l-1s\) {
+        --ms-grid-columns: 2fr 3fr 1fr;
+        --grid-template-columns: 2fr 3fr 1fr;
+    }
+
+    .cols\(3\).size\(1m-1l-1m\) {
+        --ms-grid-columns: 2fr 3fr 2fr;
+        --grid-template-columns: 2fr 3fr 2fr;
+    }
+
+    .cols\(3\).size\(1m-1l-1l\) {
+        --ms-grid-columns: 2fr 3fr 3fr;
+        --grid-template-columns: 2fr 3fr 3fr;
+    }
+
+    .cols\(3\).size\(1l-1s-1s\) {
+        --ms-grid-columns: 3fr 1fr 1fr;
+        --grid-template-columns: 3fr 1fr 1fr;
+    }
+
+    .cols\(3\).size\(1l-1s-1m\) {
+        --ms-grid-columns: 3fr 1fr 2fr;
+        --grid-template-columns: 3fr 1fr 2fr;
+    }
+
+    .cols\(3\).size\(1l-1s-1l\) {
+        --ms-grid-columns: 3fr 1fr 3fr;
+        --grid-template-columns: 3fr 1fr 3fr;
+    }
+
+    .cols\(3\).size\(1l-1m-1s\) {
+        --ms-grid-columns: 3fr 2fr 1fr;
+        --grid-template-columns: 3fr 2fr 1fr;
+    }
+
+    .cols\(3\).size\(1l-1m-1m\) {
+        --ms-grid-columns: 3fr 2fr 2fr;
+        --grid-template-columns: 3fr 2fr 2fr;
+    }
+
+    .cols\(3\).size\(1l-1m-1l {
+        --ms-grid-columns: 3fr 2fr 3fr;
+        --grid-template-columns: 3fr 2fr 3fr;
+    }
+
+    .cols\(3\).size\(1l-1l-1s\) {
+        --ms-grid-columns: 3fr 3fr 1fr;
+        --grid-template-columns: 3fr 3fr 1fr;
+    }
+
+    .cols\(3\).size\(1l-1l-1m\) {
+        --ms-grid-columns: 3fr 3fr 2fr;
+        --grid-template-columns: 3fr 3fr 2fr;
+    }
+
+    .cols\(4\).size\(1s-1s-1s-1m\) {
+        --ms-grid-columns: 1fr 1fr 1fr 2fr;
+        --grid-template-columns: 1fr 1fr 1fr 2fr;
+    }
+
+    .cols\(4\).size\(1s-1s-1s-1l\) {
+        --ms-grid-columns: 1fr 1fr 1fr 3fr;
+        --grid-template-columns: 1fr 1fr 1fr 3fr;
+    }
+
+    .cols\(4\).size\(1s-1s-1m-1s\) {
+        --ms-grid-columns: 1fr 1fr 2fr 1fr;
+        --grid-template-columns: 1fr 1fr 2fr 1fr;
+    }
+
+    .cols\(4\).size\(1s-1s-1m-1m\) {
+        --ms-grid-columns: 1fr 1fr 2fr 2fr;
+        --grid-template-columns: 1fr 1fr 2fr 2fr;
+    }
+
+    .cols\(4\).size\(1s-1s-1m-1l\) {
+        --ms-grid-columns: 1fr 1fr 2fr 3fr;
+        --grid-template-columns: 1fr 1fr 2fr 3fr;
+    }
+
+    .cols\(4\).size\(1s-1s-1l-1s\) {
+        --ms-grid-columns: 1fr 1fr 3fr 1fr;
+        --grid-template-columns: 1fr 1fr 3fr 1fr;
+    }
+
+    .cols\(4\).size\(1s-1s-1l-1m\) {
+        --ms-grid-columns: 1fr 1fr 3fr 2fr;
+        --grid-template-columns: 1fr 1fr 3fr 2fr;
+    }
+
+    .cols\(4\).size\(1s-1s-1l-1l\) {
+        --ms-grid-columns: 1fr 1fr 3fr 3fr;
+        --grid-template-columns: 1fr 1fr 3fr 3fr;
+    }
+
+    .cols\(4\).size\(1s-1m-1s-1s\) {
+        --ms-grid-columns: 1fr 2fr 1fr 1fr;
+        --grid-template-columns: 1fr 2fr 1fr 1fr;
+    }
+
+    .cols\(4\).size\(1s-1m-1s-1m\) {
+        --ms-grid-columns: 1fr 2fr 1fr 2fr;
+        --grid-template-columns: 1fr 2fr 1fr 2fr;
+    }
+
+    .cols\(4\).size\(1s-1m-1s-1l\) {
+        --ms-grid-columns: 1fr 2fr 1fr 3fr;
+        --grid-template-columns: 1fr 2fr 1fr 3fr;
+    }
+
+    .cols\(4\).size\(1s-1m-1m-1s\) {
+        --ms-grid-columns: 1fr 2fr 2fr 1fr;
+        --grid-template-columns: 1fr 2fr 2fr 1fr;
+    }
+
+    .cols\(4\).size\(1s-1m-1m-1m\) {
+        --ms-grid-columns: 1fr 2fr 2fr 2fr;
+        --grid-template-columns: 1fr 2fr 2fr 2fr;
+    }
+
+    .cols\(4\).size\(1s-1m-1m-1l\) {
+        --ms-grid-columns: 1fr 2fr 2fr 3fr;
+        --grid-template-columns: 1fr 2fr 2fr 3fr;
+    }
+
+    .cols\(4\).size\(1s-1m-1l-1s\) {
+        --ms-grid-columns: 1fr 2fr 3fr 1fr;
+        --grid-template-columns: 1fr 2fr 3fr 1fr;
+    }
+
+    .cols\(4\).size\(1s-1m-1l-1m\) {
+        --ms-grid-columns: 1fr 2fr 3fr 2fr;
+        --grid-template-columns: 1fr 2fr 3fr 2fr;
+    }
+
+    .cols\(4\).size\(1s-1m-1l-1l\) {
+        --ms-grid-columns: 1fr 2fr 3fr 3fr;
+        --grid-template-columns: 1fr 2fr 3fr 3fr;
+    }
+
+    .cols\(4\).size\(1s-1l-1s-1s\) {
+        --ms-grid-columns: 1fr 3fr 1fr 1fr;
+        --grid-template-columns: 1fr 3fr 1fr 1fr;
+    }
+
+    .cols\(4\).size\(1s-1l-1s-1m\) {
+        --ms-grid-columns: 1fr 3fr 1fr 2fr;
+        --grid-template-columns: 1fr 3fr 1fr 2fr;
+    }
+
+    .cols\(4\).size\(1s-1l-1s-1l\) {
+        --ms-grid-columns: 1fr 3fr 1fr 3fr;
+        --grid-template-columns: 1fr 3fr 1fr 3fr;
+    }
+
+    .cols\(4\).size\(1s-1l-1m-1s\) {
+        --ms-grid-columns: 1fr 3fr 2fr 1fr;
+        --grid-template-columns: 1fr 3fr 2fr 1fr;
+    }
+
+    .cols\(4\).size\(1s-1l-1m-1m\) {
+        --ms-grid-columns: 1fr 3fr 2fr 2fr;
+        --grid-template-columns: 1fr 3fr 2fr 2fr;
+    }
+
+    .cols\(4\).size\(1s-1l-1m-1l\) {
+        --ms-grid-columns: 1fr 3fr 2fr 3fr;
+        --grid-template-columns: 1fr 3fr 2fr 3fr;
+    }
+
+    .cols\(4\).size\(1s-1l-1l-1s\) {
+        --ms-grid-columns: 1fr 3fr 3fr 1fr;
+        --grid-template-columns: 1fr 3fr 3fr 1fr;
+    }
+
+    .cols\(4\).size\(1s-1l-1l-1m\) {
+        --ms-grid-columns: 1fr 3fr 3fr 2fr;
+        --grid-template-columns: 1fr 3fr 3fr 2fr;
+    }
+
+    .cols\(4\).size\(1s-1l-1l-1l\) {
+        --ms-grid-columns: 1fr 3fr 3fr 3fr;
+        --grid-template-columns: 1fr 3fr 3fr 3fr;
+    }
+
+    .cols\(4\).size\(1m-1s-1s-1s\) {
+        --ms-grid-columns: 2fr 1fr 1fr 1fr;
+        --grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+
+    .cols\(4\).size\(1m-1s-1s-1m\) {
+        --ms-grid-columns: 2fr 1fr 1fr 2fr;
+        --grid-template-columns: 2fr 1fr 1fr 2fr;
+    }
+
+    .cols\(4\).size\(1m-1s-1s-1l\) {
+        --ms-grid-columns: 2fr 1fr 1fr 3fr;
+        --grid-template-columns: 2fr 1fr 1fr 3fr;
+    }
+
+    .cols\(4\).size\(1m-1s-1m-1s\) {
+        --ms-grid-columns: 2fr 1fr 2fr 1fr;
+        --grid-template-columns: 2fr 1fr 2fr 1fr;
+    }
+
+    .cols\(4\).size\(1m-1s-1m-1m\) {
+        --ms-grid-columns: 2fr 1fr 2fr 2fr;
+        --grid-template-columns: 2fr 1fr 2fr 2fr;
+    }
+
+    .cols\(4\).size\(1m-1s-1m-1l\) {
+        --ms-grid-columns: 2fr 1fr 2fr 3fr;
+        --grid-template-columns: 2fr 1fr 2fr 3fr;
+    }
+
+    .cols\(4\).size\(1m-1s-1l-1s\) {
+        --ms-grid-columns: 2fr 1fr 3fr 1fr;
+        --grid-template-columns: 2fr 1fr 3fr 1fr;
+    }
+
+    .cols\(4\).size\(1m-1s-1l-1m\) {
+        --ms-grid-columns: 2fr 1fr 3fr 2fr;
+        --grid-template-columns: 2fr 1fr 3fr 2fr;
+    }
+
+    .cols\(4\).size\(1m-1s-1l-1l\) {
+        --ms-grid-columns: 2fr 1fr 3fr 3fr;
+        --grid-template-columns: 2fr 1fr 3fr 3fr;
+    }
+
+    .cols\(4\).size\(1m-1m-1s-1s\) {
+        --ms-grid-columns: 2fr 2fr 1fr 1fr;
+        --grid-template-columns: 2fr 2fr 1fr 1fr;
+    }
+
+    .cols\(4\).size\(1m-1m-1s-1m\) {
+        --ms-grid-columns: 2fr 2fr 1fr 2fr;
+        --grid-template-columns: 2fr 2fr 1fr 2fr;
+    }
+
+    .cols\(4\).size\(1m-1m-1s-1l\) {
+        --ms-grid-columns: 2fr 2fr 1fr 3fr;
+        --grid-template-columns: 2fr 2fr 1fr 3fr;
+    }
+
+    .cols\(4\).size\(1m-1m-1m-1\) {
+        --ms-grid-columns: 2fr 2fr 2fr 1fr;
+        --grid-template-columns: 2fr 2fr 2fr 1fr;
+    }
+
+    .cols\(4\).size\(1m-1m-1m-1l\) {
+        --ms-grid-columns: 2fr 2fr 2fr 3fr;
+        --grid-template-columns: 2fr 2fr 2fr 3fr;
+    }
+
+    .cols\(4\).size\(1m-1m-1l-1s\) {
+        --ms-grid-columns: 2fr 2fr 3fr 1fr;
+        --grid-template-columns: 2fr 2fr 3fr 1fr;
+    }
+
+    .cols\(4\).size\(1m-1m-1l-1m\) {
+        --ms-grid-columns: 2fr 2fr 3fr 2fr;
+        --grid-template-columns: 2fr 2fr 3fr 2fr;
+    }
+
+    .cols\(4\).size\(1m-1m-1l-1l\) {
+        --ms-grid-columns: 2fr 2fr 3fr 3fr;
+        --grid-template-columns: 2fr 2fr 3fr 3fr;
+    }
+
+    .cols\(4\).size\(1m-1l-1s-1s\) {
+        --ms-grid-columns: 2fr 3fr 1fr 1fr;
+        --grid-template-columns: 2fr 3fr 1fr 1fr;
+    }
+
+    .cols\(4\).size\(1m-1l-1s-1m\) {
+        --ms-grid-columns: 2fr 3fr 1fr 2fr;
+        --grid-template-columns: 2fr 3fr 1fr 2fr;
+    }
+
+    .cols\(4\).size\(1m-1l-1s-1l\) {
+        --ms-grid-columns: 2fr 3fr 1fr 3fr;
+        --grid-template-columns: 2fr 3fr 1fr 3fr;
+    }
+
+    .cols\(4\).size\(1m-1l-1m-1s\) {
+        --ms-grid-columns: 2fr 3fr 2fr 1fr;
+        --grid-template-columns: 2fr 3fr 2fr 1fr;
+    }
+
+    .cols\(4\).size\(1m-1l-1m-1m\) {
+        --ms-grid-columns: 2fr 3fr 2fr 2fr;
+        --grid-template-columns: 2fr 3fr 2fr 2fr;
+    }
+
+    .cols\(4\).size\(1m-1l-1m-1l\) {
+        --ms-grid-columns: 2fr 3fr 2fr 3fr;
+        --grid-template-columns: 2fr 3fr 2fr 3fr;
+    }
+
+    .cols\(4\).size\(1m-1l-1l-1s\) {
+        --ms-grid-columns: 2fr 3fr 3fr 1fr;
+        --grid-template-columns: 2fr 3fr 3fr 1fr;
+    }
+
+    .cols\(4\).size\(1m-1l-1l-1m\) {
+        --ms-grid-columns: 2fr 3fr 3fr 2fr;
+        --grid-template-columns: 2fr 3fr 3fr 2fr;
+    }
+
+    .cols\(4\).size\(1m-1l-1l-1l\) {
+        --ms-grid-columns: 2fr 3fr 3fr 3fr;
+        --grid-template-columns: 2fr 3fr 3fr 3fr;
+    }
+
+    .cols\(4\).size\(1l-1s-1s-1s\) {
+        --ms-grid-columns: 3fr 1fr 1fr 1fr;
+        --grid-template-columns: 3fr 1fr 1fr 1fr;
+    }
+
+    .cols\(4\).size\(1l-1s-1s-1m\) {
+        --ms-grid-columns: 3fr 1fr 1fr 2fr;
+        --grid-template-columns: 3fr 1fr 1fr 2fr;
+    }
+
+    .cols\(4\).size\(1l-1s-1s-1l\) {
+        --ms-grid-columns: 3fr 1fr 1fr 3fr;
+        --grid-template-columns: 3fr 1fr 1fr 3fr;
+    }
+
+    .cols\(4\).size\(1l-1s-1m-1s\) {
+        --ms-grid-columns: 3fr 1fr 2fr 1fr;
+        --grid-template-columns: 3fr 1fr 2fr 1fr;
+    }
+
+    .cols\(4\).size\(1l-1s-1m-1m\) {
+        --ms-grid-columns: 3fr 1fr 2fr 2fr;
+        --grid-template-columns: 3fr 1fr 2fr 2fr;
+    }
+
+    .cols\(4\).size\(1l-1s-1m-1l\) {
+        --ms-grid-columns: 3fr 1fr 2fr 3fr;
+        --grid-template-columns: 3fr 1fr 2fr 3fr;
+    }
+
+    .cols\(4\).size\(1l-1s-1l-1s\) {
+        --ms-grid-columns: 3fr 1fr 3fr 1fr;
+        --grid-template-columns: 3fr 1fr 3fr 1fr;
+    }
+
+    .cols\(4\).size\(1l-1s-1l-1m\) {
+        --ms-grid-columns: 3fr 1fr 3fr 2fr;
+        --grid-template-columns: 3fr 1fr 3fr 2fr;
+    }
+
+    .cols\(4\).size\(1l-1s-1l-1l\) {
+        --ms-grid-columns: 3fr 1fr 3fr 3fr;
+        --grid-template-columns: 3fr 1fr 3fr 3fr;
+    }
+
+    .cols\(4\).size\(1l-1m-1s-1s\) {
+        --ms-grid-columns: 3fr 2fr 1fr 1fr;
+        --grid-template-columns: 3fr 2fr 1fr 1fr;
+    }
+
+    .cols\(4\).size\(1l-1m-1s-1m\) {
+        --ms-grid-columns: 3fr 2fr 1fr 2fr;
+        --grid-template-columns: 3fr 2fr 1fr 2fr;
+    }
+
+    .cols\(4\).size\(1l-1m-1s-1l\) {
+        --ms-grid-columns: 3fr 2fr 1fr 3fr;
+        --grid-template-columns: 3fr 2fr 1fr 3fr;
+    }
+
+    .cols\(4\).size\(1l-1m-1m-1s\) {
+        --ms-grid-columns: 3fr 2fr 2fr 1fr;
+        --grid-template-columns: 3fr 2fr 2fr 1fr;
+    }
+
+    .cols\(4\).size\(1l-1m-1m-1m\) {
+        --ms-grid-columns: 3fr 2fr 2fr 2fr;
+        --grid-template-columns: 3fr 2fr 2fr 2fr;
+    }
+
+    .cols\(4\).size\(1l-1m-1m-1l\) {
+        --ms-grid-columns: 3fr 2fr 2fr 3fr;
+        --grid-template-columns: 3fr 2fr 2fr 3fr;
+    }
+
+    .cols\(4\).size\(1l-1m-1l-1s\) {
+        --ms-grid-columns: 3fr 2fr 3fr 1fr;
+        --grid-template-columns: 3fr 2fr 3fr 1fr;
+    }
+
+    .cols\(4\).size\(1l-1m-1l-1m\) {
+        --ms-grid-columns: 3fr 2fr 3fr 2fr;
+        --grid-template-columns: 3fr 2fr 3fr 2fr;
+    }
+
+    .cols\(4\).size\(1l-1m-1l-1l\) {
+        --ms-grid-columns: 3fr 2fr 3fr 3fr;
+        --grid-template-columns: 3fr 2fr 3fr 3fr;
+    }
+
+    .cols\(4\).size\(1l-1l-1s-1s\) {
+        --ms-grid-columns: 3fr 3fr 1fr 1fr;
+        --grid-template-columns: 3fr 3fr 1fr 1fr;
+    }
+
+    .cols\(4\).size\(1l-1l-1s-1m\) {
+        --ms-grid-columns: 3fr 3fr 1fr 2fr;
+        --grid-template-columns: 3fr 3fr 1fr 2fr;
+    }
+
+    .cols\(4\).size\(1l-1l-1s-1l\) {
+        --ms-grid-columns: 3fr 3fr 1fr 3fr;
+        --grid-template-columns: 3fr 3fr 1fr 3fr;
+    }
+
+    .cols\(4\).size\(1l-1l-1m-1s\) {
+        --ms-grid-columns: 3fr 3fr 2fr 1fr;
+        --grid-template-columns: 3fr 3fr 2fr 1fr;
+    }
+
+    .cols\(4\).size\(1l-1l-1m-1m\) {
+        --ms-grid-columns: 3fr 3fr 2fr 2fr;
+        --grid-template-columns: 3fr 3fr 2fr 2fr;
+    }
+
+    .cols\(4\).size\(1l-1l-1m-1l\) {
+        --ms-grid-columns: 3fr 3fr 2fr 3fr;
+        --grid-template-columns: 3fr 3fr 2fr 3fr;
+    }
+
+    .cols\(4\).size\(1l-1l-1l-1s\) {
+        --ms-grid-columns: 3fr 3fr 1fr 1fr;
+        --grid-template-columns: 3fr 3fr 1fr 1fr;
+    }
+
+    .cols\(4\).size\(1l-1l-1l-1m\) {
+        --ms-grid-columns: 3fr 3fr 3fr 2fr;
+        --grid-template-columns: 3fr 3fr 3fr 2fr;
+    }
+}
+
+@media all and (min-width: 1268px) {
+
+    .cols\(6\),
+    .cols\(12\) {
+        --ms-grid-columns: (1fr)[6];
+        --grid-template-columns: repeat(6, 1fr);
+    }
+
+    .cols\(7\) {
+        --ms-grid-columns: (1fr)[7];
+        --grid-template-columns: repeat(7, 1fr);
+
+    }
+
+    .cols\(8\) {
+        --ms-grid-columns: (1fr)[8];
+        --grid-template-columns: repeat(8, 1fr);
+    }
+
+    .cols\(9\) {
+        --ms-grid-columns: (1fr)[9];
+        --grid-template-columns: repeat(9, 1fr);
+    }
+
+    .cols\(10\) {
+        --ms-grid-columns: (1fr)[10];
+        --grid-template-columns: repeat(10, 1fr);
+    }
+
+    .cols\(11\) {
+        --ms-grid-columns: (1fr)[11];
+        --grid-template-columns: repeat(11, 1fr);
+    }
+}
+
+@media all and (min-width: 1366px) {
+    .cols\(12\) {
+        --ms-grid-columns: (1fr)[12];
+        --grid-template-columns: repeat(12, 1fr);
+    }
+
 }
 
 @media all and (min-width: 768px) and (max-width:1024px) {
@@ -243,754 +997,14 @@
     }
 }
 
-@media all and (min-width: 768px) {
-
-    .cols\(2\),
-    .cols\(5\),
-    .cols\(4\),
-    .cols\(6\),
-    .cols\(8\),
-    .cols\(9\),
-    .cols\(10\),
-    .cols\(11\),
-    .cols\(12\) {
-        -ms-grid-columns: (1fr)[2];
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .cols\(3\) {
-        -ms-grid-columns: (1fr)[3];
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .cols\(2\).sz\(1s-1m\),
-    .cols\(2\).sz\(1s-1l\),
-    .cols\(2\).sz\(1m-1s\),
-    .cols\(2\).sz\(1m-1l\),
-    .cols\(2\).sz\(1l-1s\),
-    .cols\(2\).sz\(1l-1m\),
-    .cols\(3\).sz\(1s-1s-1m\),
-    .cols\(3\).sz\(1s-1s-1l\),
-    .cols\(3\).sz\(1s-1m-1s\),
-    .cols\(3\).sz\(1s-1m-1m\),
-    .cols\(3\).sz\(1s-1m-1l\),
-    .cols\(3\).sz\(1s-1l-1s\),
-    .cols\(3\).sz\(1s-1l-1m\),
-    .cols\(3\).sz\(1s-1l-1l\),
-    .cols\(3\).sz\(1m-1s-1s\),
-    .cols\(3\).sz\(1m-1s-1m\),
-    .cols\(3\).sz\(1m-1s-1l\),
-    .cols\(3\).sz\(1m-1m-1s\),
-    .cols\(3\).sz\(1m-1m-1l\),
-    .cols\(3\).sz\(1m-1l-1s\),
-    .cols\(3\).sz\(1m-1l-1m\),
-    .cols\(3\).sz\(1m-1l-1l\),
-    .cols\(3\).sz\(1l-1s-1s\),
-    .cols\(3\).sz\(1l-1s-1m\),
-    .cols\(3\).sz\(1l-1s-1l\),
-    .cols\(3\).sz\(1l-1m-1s\),
-    .cols\(3\).sz\(1l-1m-1m\),
-    .cols\(3\).sz\(1l-1m-1l\),
-    .cols\(3\).sz\(1l-1l-1s\),
-    .cols\(3\).sz\(1l-1l-1m\),
-    .cols\(4\).sz\(1s-1s-1s-1m\),
-    .cols\(4\).sz\(1s-1s-1s-1l\),
-    .cols\(4\).sz\(1s-1s-1m-1s\),
-    .cols\(4\).sz\(1s-1s-1m-1m\),
-    .cols\(4\).sz\(1s-1s-1m-1l\),
-    .cols\(4\).sz\(1s-1s-1l-1s\),
-    .cols\(4\).sz\(1s-1s-1l-1m\),
-    .cols\(4\).sz\(1s-1s-1l-1l\),
-    .cols\(4\).sz\(1s-1m-1s-1s\),
-    .cols\(4\).sz\(1s-1m-1s-1m\),
-    .cols\(4\).sz\(1s-1m-1s-1l\),
-    .cols\(4\).sz\(1s-1m-1m-1s\),
-    .cols\(4\).sz\(1s-1m-1m-1m\),
-    .cols\(4\).sz\(1s-1m-1m-1l\),
-    .cols\(4\).sz\(1s-1m-1l-1s\),
-    .cols\(4\).sz\(1s-1m-1l-1m\),
-    .cols\(4\).sz\(1s-1m-1l-1l\),
-    .cols\(4\).sz\(1s-1l-1s-1s\),
-    .cols\(4\).sz\(1s-1l-1s-1m\),
-    .cols\(4\).sz\(1s-1l-1s-1l\),
-    .cols\(4\).sz\(1s-1l-1m-1s\),
-    .cols\(4\).sz\(1s-1l-1m-1m\),
-    .cols\(4\).sz\(1s-1l-1m-1l\),
-    .cols\(4\).sz\(1s-1l-1l-1s\),
-    .cols\(4\).sz\(1s-1l-1l-1m\),
-    .cols\(4\).sz\(1s-1l-1l-1l\),
-    .cols\(4\).sz\(1m-1s-1s-1s\),
-    .cols\(4\).sz\(1m-1s-1s-1m\),
-    .cols\(4\).sz\(1m-1s-1s-1l\),
-    .cols\(4\).sz\(1m-1s-1m-1s\),
-    .cols\(4\).sz\(1m-1s-1m-1m\),
-    .cols\(4\).sz\(1m-1s-1m-1l\),
-    .cols\(4\).sz\(1m-1s-1l-1s\),
-    .cols\(4\).sz\(1m-1s-1l-1m\),
-    .cols\(4\).sz\(1m-1s-1l-1l\),
-    .cols\(4\).sz\(1m-1m-1s-1s\),
-    .cols\(4\).sz\(1m-1m-1s-1m\),
-    .cols\(4\).sz\(1m-1m-1s-1l\),
-    .cols\(4\).sz\(1m-1m-1m-1s\),
-    .cols\(4\).sz\(1m-1m-1m-1l\),
-    .cols\(4\).sz\(1m-1m-1l-1s\),
-    .cols\(4\).sz\(1m-1m-1l-1m\),
-    .cols\(4\).sz\(1m-1m-1l-1l\),
-    .cols\(4\).sz\(1m-1l-1s-1s\),
-    .cols\(4\).sz\(1m-1l-1s-1m\),
-    .cols\(4\).sz\(1m-1l-1s-1l\),
-    .cols\(4\).sz\(1m-1l-1m-1s\),
-    .cols\(4\).sz\(1m-1l-1m-1m\),
-    .cols\(4\).sz\(1m-1l-1m-1l\),
-    .cols\(4\).sz\(1m-1l-1l-1s\),
-    .cols\(4\).sz\(1m-1l-1l-1m\),
-    .cols\(4\).sz\(1m-1l-1l-1l\),
-    .cols\(4\).sz\(1l-1s-1s-1s\),
-    .cols\(4\).sz\(1l-1s-1s-1m\),
-    .cols\(4\).sz\(1l-1s-1s-1l\),
-    .cols\(4\).sz\(1l-1s-1m-1s\),
-    .cols\(4\).sz\(1l-1s-1m-1m\),
-    .cols\(4\).sz\(1l-1s-1m-1l\),
-    .cols\(4\).sz\(1l-1s-1l-1s\),
-    .cols\(4\).sz\(1l-1s-1l-1m\),
-    .cols\(4\).sz\(1l-1s-1l-1l\),
-    .cols\(4\).sz\(1l-1m-1s-1s\),
-    .cols\(4\).sz\(1l-1m-1s-1m\),
-    .cols\(4\).sz\(1l-1m-1s-1l\),
-    .cols\(4\).sz\(1l-1m-1m-1s\),
-    .cols\(4\).sz\(1l-1m-1m-1m\),
-    .cols\(4\).sz\(1l-1m-1m-1l\),
-    .cols\(4\).sz\(1l-1m-1l-1s\),
-    .cols\(4\).sz\(1l-1m-1l-1m\),
-    .cols\(4\).sz\(1l-1m-1l-1l\),
-    .cols\(4\).sz\(1l-1l-1s-1s\),
-    .cols\(4\).sz\(1l-1l-1s-1m\),
-    .cols\(4\).sz\(1l-1l-1s-1l\),
-    .cols\(4\).sz\(1l-1l-1m-1s\),
-    .cols\(4\).sz\(1l-1l-1m-1m\),
-    .cols\(4\).sz\(1l-1l-1m-1l\),
-    .cols\(4\).sz\(1l-1l-1l-1s\),
-    .cols\(4\).sz\(1l-1l-1l-1m\) {
-        -ms-grid-columns: (1fr)[2];
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media all and (min-width: 1024px) {
-
-    .cols\(3\),
-    .cols\(6\),
-    .cols\(12\) {
-        -ms-grid-columns: (1fr)[3];
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-
-    .cols\(4\),
-    .cols\(8\) {
-        -ms-grid-columns: (1fr)[4];
-        grid-template-columns: repeat(4, 1fr);
-    }
-
-    .cols\(5\),
-    .cols\(9\),
-    .cols\(10\),
-    .cols\(11\) {
-        -ms-grid-columns: (1fr)[5];
-        grid-template-columns: repeat(5, 1fr);
-    }
-
-    .cols\(2\).sz\(1s-1m\) {
-        -ms-grid-columns: 1fr 2fr;
-        grid-template-columns: 1fr 2fr;
-    }
-
-    .cols\(2\).sz\(1s-1l\) {
-        -ms-grid-columns: 1fr 3fr;
-        grid-template-columns: 1fr 3fr;
-    }
-
-    .cols\(2\).sz\(1m-1s\) {
-        -ms-grid-columns: 2fr 1fr;
-        grid-template-columns: 2fr 1fr;
-    }
-
-    .cols\(2\).sz\(1m-1l\) {
-        -ms-grid-columns: 2fr 3fr;
-        grid-template-columns: 2fr 3fr;
-    }
-
-    .cols\(2\).sz\(1l-1s\) {
-        -ms-grid-columns: 3fr 1fr;
-        grid-template-columns: 3fr 1fr;
-    }
-
-    .cols\(2\).sz\(1l-1m\) {
-        -ms-grid-columns: 3fr 2fr;
-        grid-template-columns: 3fr 2fr;
-    }
-
-    .cols\(3\).sz\(1s-1s-1m\) {
-        -ms-grid-columns: 1fr 1fr 2fr;
-        grid-template-columns: 1fr 1fr 2fr;
-    }
-
-    .cols\(3\).sz\(1s-1s-1l\) {
-        -ms-grid-columns: 1fr 1fr 3fr;
-        grid-template-columns: 1fr 1fr 3fr;
-    }
-
-    .cols\(3\).sz\(1s-1m-1s {
-        -ms-grid-columns: 1fr 2fr 1fr;
-        grid-template-columns: 1fr 2fr 1fr;
-    }
-
-    .cols\(3\).sz\(1s-1m-1m\) {
-        -ms-grid-columns: 1fr 2fr 2fr;
-        grid-template-columns: 1fr 2fr 2fr;
-    }
-
-    .cols\(3\).sz\(1s-1m-1l\) {
-        -ms-grid-columns: 1fr 2fr 3fr;
-        grid-template-columns: 1fr 2fr 3fr;
-    }
-
-    .cols\(3\).sz\(1s-1l-1s\) {
-        -ms-grid-columns: 1fr 3fr 1fr;
-        grid-template-columns: 1fr 3fr 1fr;
-    }
-
-    .cols\(3\).sz\(1s-1l-1m\) {
-        -ms-grid-columns: 1fr 3fr 2fr;
-        grid-template-columns: 1fr 3fr 2fr;
-    }
-
-    .cols\(3\).sz\(1s-1l-1l\) {
-        -ms-grid-columns: 1fr 3fr 3fr;
-        grid-template-columns: 1fr 3fr 3fr;
-    }
-
-    .cols\(3\).sz\(1m-1s-1s {
-        -ms-grid-columns: 2fr 1fr 1fr;
-        grid-template-columns: 2fr 1fr 1fr;
-    }
-
-    .cols\(3\).sz\(1m-1s-1m\) {
-        -ms-grid-columns: 2fr 1fr 2fr;
-        grid-template-columns: 2fr 1fr 2fr;
-    }
-
-    .cols\(3\).sz\(1m-1s-1l\) {
-        -ms-grid-columns: 2fr 1fr 3fr;
-        grid-template-columns: 2fr 1fr 3fr;
-    }
-
-    .cols\(3\).sz\(1m-1m-1s\) {
-        -ms-grid-columns: 2fr 2fr 1fr;
-        grid-template-columns: 2fr 2fr 1fr;
-    }
-
-    .cols\(3\).sz\(1m-1m-1l {
-        -ms-grid-columns: 2fr 2fr 3fr;
-        grid-template-columns: 2fr 2fr 3fr;
-    }
-
-    .cols\(3\).sz\(1m-1l-1s\) {
-        -ms-grid-columns: 2fr 3fr 1fr;
-        grid-template-columns: 2fr 3fr 1fr;
-    }
-
-    .cols\(3\).sz\(1m-1l-1m\) {
-        -ms-grid-columns: 2fr 3fr 2fr;
-        grid-template-columns: 2fr 3fr 2fr;
-    }
-
-    .cols\(3\).sz\(1m-1l-1l {
-        -ms-grid-columns: 2fr 3fr 3fr;
-        grid-template-columns: 2fr 3fr 3fr;
-    }
-
-    .cols\(3\).sz\(1l-1s-1s\) {
-        -ms-grid-columns: 3fr 1fr 1fr;
-        grid-template-columns: 3fr 1fr 1fr;
-    }
-
-    .cols\(3\).sz\(1l-1s-1m\) {
-        -ms-grid-columns: 3fr 1fr 2fr;
-        grid-template-columns: 3fr 1fr 2fr;
-    }
-
-    .cols\(3\).sz\(1l-1s-1l\) {
-        -ms-grid-columns: 3fr 1fr 3fr;
-        grid-template-columns: 3fr 1fr 3fr;
-    }
-
-    .cols\(3\).sz\(1l-1m-1s\) {
-        -ms-grid-columns: 3fr 2fr 1fr;
-        grid-template-columns: 3fr 2fr 1fr;
-    }
-
-    .cols\(3\).sz\(1l-1m-1m {
-        -ms-grid-columns: 3fr 2fr 2fr;
-        grid-template-columns: 3fr 2fr 2fr;
-    }
-
-    .cols\(3\).sz\(1l-1m-1l {
-        -ms-grid-columns: 3fr 2fr 3fr;
-        grid-template-columns: 3fr 2fr 3fr;
-    }
-
-    .cols\(3\).sz\(1l-1l-1s\) {
-        -ms-grid-columns: 3fr 3fr 1fr;
-        grid-template-columns: 3fr 3fr 1fr;
-    }
-
-    .cols\(3\).sz\(1l-1l-1m\) {
-        -ms-grid-columns: 3fr 3fr 2fr;
-        grid-template-columns: 3fr 3fr 2fr;
-    }
-
-    .cols\(4\).sz\(1s-1s-1s-1m\) {
-        -ms-grid-columns: 1fr 1fr 1fr 2fr;
-        grid-template-columns: 1fr 1fr 1fr 2fr;
-    }
-
-    .cols\(4\).sz\(1s-1s-1s-1l\) {
-        -ms-grid-columns: 1fr 1fr 1fr 3fr;
-        grid-template-columns: 1fr 1fr 1fr 3fr;
-    }
-
-    .cols\(4\).sz\(1s-1s-1m-1s\) {
-        -ms-grid-columns: 1fr 1fr 2fr 1fr;
-        grid-template-columns: 1fr 1fr 2fr 1fr;
-    }
-
-    .cols\(4\).sz\(1s-1s-1m-1m\) {
-        -ms-grid-columns: 1fr 1fr 2fr 2fr;
-        grid-template-columns: 1fr 1fr 2fr 2fr;
-    }
-
-    .cols\(4\).sz\(1s-1s-1m-1l {
-        -ms-grid-columns: 1fr 1fr 2fr 3fr;
-        grid-template-columns: 1fr 1fr 2fr 3fr;
-    }
-
-    .cols\(4\).sz\(1s-1s-1l-1s {
-        -ms-grid-columns: 1fr 1fr 3fr 1fr;
-        grid-template-columns: 1fr 1fr 3fr 1fr;
-    }
-
-    .cols\(4\).sz\(1s-1s-1l-1m {
-        -ms-grid-columns: 1fr 1fr 3fr 2fr;
-        grid-template-columns: 1fr 1fr 3fr 2fr;
-    }
-
-    .cols\(4\).sz\(1s-1s-1l-1l\) {
-        -ms-grid-columns: 1fr 1fr 3fr 3fr;
-        grid-template-columns: 1fr 1fr 3fr 3fr;
-    }
-
-    .cols\(4\).sz\(1s-1m-1s-1s\) {
-        -ms-grid-columns: 1fr 2fr 1fr 1fr;
-        grid-template-columns: 1fr 2fr 1fr 1fr;
-    }
-
-    .cols\(4\).sz\(1s-1m-1s-1m\) {
-        -ms-grid-columns: 1fr 2fr 1fr 2fr;
-        grid-template-columns: 1fr 2fr 1fr 2fr;
-    }
-
-    .cols\(4\).sz\(1s-1m-1s-1l\) {
-        -ms-grid-columns: 1fr 2fr 1fr 3fr;
-        grid-template-columns: 1fr 2fr 1fr 3fr;
-    }
-
-    .cols\(4\).sz\(1s-1m-1m-1s\) {
-        -ms-grid-columns: 1fr 2fr 2fr 1fr;
-        grid-template-columns: 1fr 2fr 2fr 1fr;
-    }
-
-    .cols\(4\).sz\(1s-1m-1m-1m {
-        -ms-grid-columns: 1fr 2fr 2fr 2fr;
-        grid-template-columns: 1fr 2fr 2fr 2fr;
-    }
-
-    .cols\(4\).sz\(1s-1m-1m-1l {
-        -ms-grid-columns: 1fr 2fr 2fr 3fr;
-        grid-template-columns: 1fr 2fr 2fr 3fr;
-    }
-
-    .cols\(4\).sz\(1s-1m-1l-1s {
-        -ms-grid-columns: 1fr 2fr 3fr 1fr;
-        grid-template-columns: 1fr 2fr 3fr 1fr;
-    }
-
-    .cols\(4\).sz\(1s-1m-1l-1m {
-        -ms-grid-columns: 1fr 2fr 3fr 2fr;
-        grid-template-columns: 1fr 2fr 3fr 2fr;
-    }
-
-    .cols\(4\).sz\(1s-1m-1l-1l {
-        -ms-grid-columns: 1fr 2fr 3fr 3fr;
-        grid-template-columns: 1fr 2fr 3fr 3fr;
-    }
-
-    .cols\(4\).sz\(1s-1l-1s-1s {
-        -ms-grid-columns: 1fr 3fr 1fr 1fr;
-        grid-template-columns: 1fr 3fr 1fr 1fr;
-    }
-
-    .cols\(4\).sz\(1s-1l-1s-1m {
-        -ms-grid-columns: 1fr 3fr 1fr 2fr;
-        grid-template-columns: 1fr 3fr 1fr 2fr;
-    }
-
-    .cols\(4\).sz\(1s-1l-1s-1l\) {
-        -ms-grid-columns: 1fr 3fr 1fr 3fr;
-        grid-template-columns: 1fr 3fr 1fr 3fr;
-    }
-
-    .cols\(4\).sz\(1s-1l-1m-1s\) {
-        -ms-grid-columns: 1fr 3fr 2fr 1fr;
-        grid-template-columns: 1fr 3fr 2fr 1fr;
-    }
-
-    .cols\(4\).sz\(1s-1l-1m-1m\) {
-        -ms-grid-columns: 1fr 3fr 2fr 2fr;
-        grid-template-columns: 1fr 3fr 2fr 2fr;
-    }
-
-    .cols\(4\).sz\(1s-1l-1m-1l\) {
-        -ms-grid-columns: 1fr 3fr 2fr 3fr;
-        grid-template-columns: 1fr 3fr 2fr 3fr;
-    }
-
-    .cols\(4\).sz\(1s-1l-1l-1s\) {
-        -ms-grid-columns: 1fr 3fr 3fr 1fr;
-        grid-template-columns: 1fr 3fr 3fr 1fr;
-    }
-
-    .cols\(4\).sz\(1s-1l-1l-1m\) {
-        -ms-grid-columns: 1fr 3fr 3fr 2fr;
-        grid-template-columns: 1fr 3fr 3fr 2fr;
-    }
-
-    .cols\(4\).sz\(1s-1l-1l-1l {
-        -ms-grid-columns: 1fr 3fr 3fr 3fr;
-        grid-template-columns: 1fr 3fr 3fr 3fr;
-    }
-
-    .cols\(4\).sz\(1m-1s-1s-1s {
-        -ms-grid-columns: 2fr 1fr 1fr 1fr;
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-    }
-
-    .cols\(4\).sz\(1m-1s-1s-1m {
-        -ms-grid-columns: 2fr 1fr 1fr 2fr;
-        grid-template-columns: 2fr 1fr 1fr 2fr;
-    }
-
-    .cols\(4\).sz\(1m-1s-1s-1l {
-        -ms-grid-columns: 2fr 1fr 1fr 3fr;
-        grid-template-columns: 2fr 1fr 1fr 3fr;
-    }
-
-    .cols\(4\).sz\(1m-1s-1m-1s {
-        -ms-grid-columns: 2fr 1fr 2fr 1fr;
-        grid-template-columns: 2fr 1fr 2fr 1fr;
-    }
-
-    .cols\(4\).sz\(1m-1s-1m-1m\) {
-        -ms-grid-columns: 2fr 1fr 2fr 2fr;
-        grid-template-columns: 2fr 1fr 2fr 2fr;
-    }
-
-    .cols\(4\).sz\(1m-1s-1m-1l\) {
-        -ms-grid-columns: 2fr 1fr 2fr 3fr;
-        grid-template-columns: 2fr 1fr 2fr 3fr;
-    }
-
-    .cols\(4\).sz\(1m-1s-1l-1s\) {
-        -ms-grid-columns: 2fr 1fr 3fr 1fr;
-        grid-template-columns: 2fr 1fr 3fr 1fr;
-    }
-
-    .cols\(4\).sz\(1m-1s-1l-1m\) {
-        -ms-grid-columns: 2fr 1fr 3fr 2fr;
-        grid-template-columns: 2fr 1fr 3fr 2fr;
-    }
-
-    .cols\(4\).sz\(1m-1s-1l-1l\) {
-        -ms-grid-columns: 2fr 1fr 3fr 3fr;
-        grid-template-columns: 2fr 1fr 3fr 3fr;
-    }
-
-    .cols\(4\).sz\(1m-1m-1s-1s\) {
-        -ms-grid-columns: 2fr 2fr 1fr 1fr;
-        grid-template-columns: 2fr 2fr 1fr 1fr;
-    }
-
-    .cols\(4\).sz\(1m-1m-1s-1m {
-        -ms-grid-columns: 2fr 2fr 1fr 2fr;
-        grid-template-columns: 2fr 2fr 1fr 2fr;
-    }
-
-    .cols\(4\).sz\(1m-1m-1s-1l {
-        -ms-grid-columns: 2fr 2fr 1fr 3fr;
-        grid-template-columns: 2fr 2fr 1fr 3fr;
-    }
-
-    .cols\(4\).sz\(1m-1m-1m-1\) {
-        -ms-grid-columns: 2fr 2fr 2fr 1fr;
-        grid-template-columns: 2fr 2fr 2fr 1fr;
-    }
-
-    .cols\(4\).sz\(1m-1m-1m-1l\) {
-        -ms-grid-columns: 2fr 2fr 2fr 3fr;
-        grid-template-columns: 2fr 2fr 2fr 3fr;
-    }
-
-    .cols\(4\).sz\(1m-1m-1l-1s\) {
-        -ms-grid-columns: 2fr 2fr 3fr 1fr;
-        grid-template-columns: 2fr 2fr 3fr 1fr;
-    }
-
-    .cols\(4\).sz\(1m-1m-1l-1m\) {
-        -ms-grid-columns: 2fr 2fr 3fr 2fr;
-        grid-template-columns: 2fr 2fr 3fr 2fr;
-    }
-
-    .cols\(4\).sz\(1m-1m-1l-1l\) {
-        -ms-grid-columns: 2fr 2fr 3fr 3fr;
-        grid-template-columns: 2fr 2fr 3fr 3fr;
-    }
-
-    .cols\(4\).sz\(1m-1l-1s-1s\) {
-        -ms-grid-columns: 2fr 3fr 1fr 1fr;
-        grid-template-columns: 2fr 3fr 1fr 1fr;
-    }
-
-    .cols\(4\).sz\(1m-1l-1s-1m\) {
-        -ms-grid-columns: 2fr 3fr 1fr 2fr;
-        grid-template-columns: 2fr 3fr 1fr 2fr;
-    }
-
-    .cols\(4\).sz\(1m-1l-1s-1l\) {
-        -ms-grid-columns: 2fr 3fr 1fr 3fr;
-        grid-template-columns: 2fr 3fr 1fr 3fr;
-    }
-
-    .cols\(4\).sz\(1m-1l-1m-1s\) {
-        -ms-grid-columns: 2fr 3fr 2fr 1fr;
-        grid-template-columns: 2fr 3fr 2fr 1fr;
-    }
-
-    .cols\(4\).sz\(1m-1l-1m-1m\) {
-        -ms-grid-columns: 2fr 3fr 2fr 2fr;
-        grid-template-columns: 2fr 3fr 2fr 2fr;
-    }
-
-    .cols\(4\).sz\(1m-1l-1m-1l\) {
-        -ms-grid-columns: 2fr 3fr 2fr 3fr;
-        grid-template-columns: 2fr 3fr 2fr 3fr;
-    }
-
-    .cols\(4\).sz\(1m-1l-1l-1s\) {
-        -ms-grid-columns: 2fr 3fr 3fr 1fr;
-        grid-template-columns: 2fr 3fr 3fr 1fr;
-    }
-
-    .cols\(4\).sz\(1m-1l-1l-1m\) {
-        -ms-grid-columns: 2fr 3fr 3fr 2fr;
-        grid-template-columns: 2fr 3fr 3fr 2fr;
-    }
-
-    .cols\(4\).sz\(1m-1l-1l-1l\) {
-        -ms-grid-columns: 2fr 3fr 3fr 3fr;
-        grid-template-columns: 2fr 3fr 3fr 3fr;
-    }
-
-    .cols\(4\).sz\(1l-1s-1s-1s\) {
-        -ms-grid-columns: 3fr 1fr 1fr 1fr;
-        grid-template-columns: 3fr 1fr 1fr 1fr;
-    }
-
-    .cols\(4\).sz\(1l-1s-1s-1m\) {
-        -ms-grid-columns: 3fr 1fr 1fr 2fr;
-        grid-template-columns: 3fr 1fr 1fr 2fr;
-    }
-
-    .cols\(4\).sz\(1l-1s-1s-1l\) {
-        -ms-grid-columns: 3fr 1fr 1fr 3fr;
-        grid-template-columns: 3fr 1fr 1fr 3fr;
-    }
-
-    .cols\(4\).sz\(1l-1s-1m-1s\) {
-        -ms-grid-columns: 3fr 1fr 2fr 1fr;
-        grid-template-columns: 3fr 1fr 2fr 1fr;
-    }
-
-    .cols\(4\).sz\(1l-1s-1m-1m\) {
-        -ms-grid-columns: 3fr 1fr 2fr 2fr;
-        grid-template-columns: 3fr 1fr 2fr 2fr;
-    }
-
-    .cols\(4\).sz\(1l-1s-1m-1l\) {
-        -ms-grid-columns: 3fr 1fr 2fr 3fr;
-        grid-template-columns: 3fr 1fr 2fr 3fr;
-    }
-
-    .cols\(4\).sz\(1l-1s-1l-1s\) {
-        -ms-grid-columns: 3fr 1fr 3fr 1fr;
-        grid-template-columns: 3fr 1fr 3fr 1fr;
-    }
-
-    .cols\(4\).sz\(1l-1s-1l-1m\) {
-        -ms-grid-columns: 3fr 1fr 3fr 2fr;
-        grid-template-columns: 3fr 1fr 3fr 2fr;
-    }
-
-    .cols\(4\).sz\(1l-1s-1l-1l {
-        -ms-grid-columns: 3fr 1fr 3fr 3fr;
-        grid-template-columns: 3fr 1fr 3fr 3fr;
-    }
-
-    .cols\(4\).sz\(1l-1m-1s-1s {
-        -ms-grid-columns: 3fr 2fr 1fr 1fr;
-        grid-template-columns: 3fr 2fr 1fr 1fr;
-    }
-
-    .cols\(4\).sz\(1l-1m-1s-1m\) {
-        -ms-grid-columns: 3fr 2fr 1fr 2fr;
-        grid-template-columns: 3fr 2fr 1fr 2fr;
-    }
-
-    .cols\(4\).sz\(1l-1m-1s-1l\) {
-        -ms-grid-columns: 3fr 2fr 1fr 3fr;
-        grid-template-columns: 3fr 2fr 1fr 3fr;
-    }
-
-    .cols\(4\).sz\(1l-1m-1m-1s\) {
-        -ms-grid-columns: 3fr 2fr 2fr 1fr;
-        grid-template-columns: 3fr 2fr 2fr 1fr;
-    }
-
-    .cols\(4\).sz\(1l-1m-1m-1m\) {
-        -ms-grid-columns: 3fr 2fr 2fr 2fr;
-        grid-template-columns: 3fr 2fr 2fr 2fr;
-    }
-
-    .cols\(4\).sz\(1l-1m-1m-1l\) {
-        -ms-grid-columns: 3fr 2fr 2fr 3fr;
-        grid-template-columns: 3fr 2fr 2fr 3fr;
-    }
-
-    .cols\(4\).sz\(1l-1m-1l-1s\) {
-        -ms-grid-columns: 3fr 2fr 3fr 1fr;
-        grid-template-columns: 3fr 2fr 3fr 1fr;
-    }
-
-    .cols\(4\).sz\(1l-1m-1l-1m\) {
-        -ms-grid-columns: 3fr 2fr 3fr 2fr;
-        grid-template-columns: 3fr 2fr 3fr 2fr;
-    }
-
-    .cols\(4\).sz\(1l-1m-1l-1l\) {
-        -ms-grid-columns: 3fr 2fr 3fr 3fr;
-        grid-template-columns: 3fr 2fr 3fr 3fr;
-    }
-
-    .cols\(4\).sz\(1l-1l-1s-1s\) {
-        -ms-grid-columns: 3fr 3fr 1fr 1fr;
-        grid-template-columns: 3fr 3fr 1fr 1fr;
-    }
-
-    .cols\(4\).sz\(1l-1l-1s-1m\) {
-        -ms-grid-columns: 3fr 3fr 1fr 2fr;
-        grid-template-columns: 3fr 3fr 1fr 2fr;
-    }
-
-    .cols\(4\).sz\(1l-1l-1s-1l\) {
-        -ms-grid-columns: 3fr 3fr 1fr 3fr;
-        grid-template-columns: 3fr 3fr 1fr 3fr;
-    }
-
-    .cols\(4\).sz\(1l-1l-1m-1s\) {
-        -ms-grid-columns: 3fr 3fr 2fr 1fr;
-        grid-template-columns: 3fr 3fr 2fr 1fr;
-    }
-
-    .cols\(4\).sz\(1l-1l-1m-1m\) {
-        -ms-grid-columns: 3fr 3fr 2fr 2fr;
-        grid-template-columns: 3fr 3fr 2fr 2fr;
-    }
-
-    .cols\(4\).sz\(1l-1l-1m-1l\) {
-        -ms-grid-columns: 3fr 3fr 2fr 3fr;
-        grid-template-columns: 3fr 3fr 2fr 3fr;
-    }
-
-    .cols\(4\).sz\(1l-1l-1l-1s\) {
-        -ms-grid-columns: 3fr 3fr 1fr 1fr;
-        grid-template-columns: 3fr 3fr 1fr 1fr;
-    }
-
-    .cols\(4\).sz\(1l-1l-1l-1m\) {
-        -ms-grid-columns: 3fr 3fr 3fr 2fr;
-        grid-template-columns: 3fr 3fr 3fr 2fr;
-    }
-}
-
-@media all and (min-width: 1268px) {
-
-    .cols\(6\),
-    .cols\(12\) {
-        -ms-grid-columns: (1fr)[6];
-        grid-template-columns: repeat(6, 1fr);
-    }
-
-    .cols\(7\) {
-        -ms-grid-columns: (1fr)[7];
-        grid-template-columns: repeat(7, 1fr);
-
-    }
-
-    .cols\(8\) {
-        -ms-grid-columns: (1fr)[8];
-        grid-template-columns: repeat(8, 1fr);
-    }
-
-    .cols\(9\) {
-        -ms-grid-columns: (1fr)[9];
-        grid-template-columns: repeat(9, 1fr);
-    }
-
-    .cols\(10\) {
-        -ms-grid-columns: (1fr)[10];
-        grid-template-columns: repeat(10, 1fr);
-    }
-
-    .cols\(11\) {
-        -ms-grid-columns: (1fr)[11];
-        grid-template-columns: repeat(11, 1fr);
-    }
-}
-
 @media all and (min-width: 1024px) and (max-width:1268px) {
 
     .cols\(9\) > div:last-child {
+        -ms-grid-column-span: 2 !important;
         grid-column: span 2 !important
     }
 
     .cols\(11\) > div:last-child {
         grid-column: 1 / -1 !important
     }
-}
-
-@media all and (min-width: 1366px) {
-    .cols\(12\) {
-        -ms-grid-columns: (1fr)[12];
-        grid-template-columns: repeat(12, 1fr);
-    }
-
 }
